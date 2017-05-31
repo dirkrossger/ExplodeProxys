@@ -6,6 +6,7 @@ using Autodesk.AutoCAD.Runtime;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.ApplicationServices;
+using Autodesk.AutoCAD.Geometry;
 
 [assembly: CommandClass(typeof(ExplodeProxyMgd.ExplodeProxy))]
 
@@ -65,6 +66,16 @@ namespace ExplodeProxyMgd
                                         btr.AppendEntity(ent);
                                         tr.AddNewlyCreatedDBObject(ent, true);
                                     }
+
+                                    BlockTableRecord ms = (BlockTableRecord)tr.GetObject(bt[BlockTableRecord.ModelSpace], OpenMode.ForWrite );
+
+                                    BlockReference br =
+                                      new BlockReference(Point3d.Origin, btrId);
+
+                                    ms.AppendEntity(br);
+                                    tr.AddNewlyCreatedDBObject(br, true);
+
+
                                 }
 
                                 tr.Commit();
