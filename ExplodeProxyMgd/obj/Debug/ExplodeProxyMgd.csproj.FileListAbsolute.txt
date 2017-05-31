@@ -1,0 +1,7 @@
+H:\Dropbox\.net private\ExplodeProxyMgd\ExplodeProxyMgd\bin\Debug\ExplodeProxyMgd.dll
+H:\Dropbox\.net private\ExplodeProxyMgd\ExplodeProxyMgd\bin\Debug\ExplodeProxyMgd.pdb
+H:\Dropbox\.net private\ExplodeProxyMgd\ExplodeProxyMgd\bin\Debug\accoremgd.dll
+H:\Dropbox\.net private\ExplodeProxyMgd\ExplodeProxyMgd\bin\Debug\acdbmgd.dll
+H:\Dropbox\.net private\ExplodeProxyMgd\ExplodeProxyMgd\bin\Debug\acmgd.dll
+H:\Dropbox\.net private\ExplodeProxyMgd\ExplodeProxyMgd\obj\Debug\ExplodeProxyMgd.dll
+H:\Dropbox\.net private\ExplodeProxyMgd\ExplodeProxyMgd\obj\Debug\ExplodeProxyMgd.pdb
