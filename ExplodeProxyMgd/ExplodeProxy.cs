@@ -17,6 +17,8 @@ namespace ExplodeProxyMgd
 
         private static ObjectIdCollection ids = new ObjectIdCollection();
 
+
+        private Entity entx;
         [CommandMethod("proxy-explode-to-block")]
         public void ProxyExplodeToBlock()
         {
@@ -24,12 +26,15 @@ namespace ExplodeProxyMgd
             Database db = doc.Database;
             Editor ed = doc.Editor;
 
+            
+
             using (Transaction tr = doc.TransactionManager.StartTransaction())
             {
                 try
                 {
                     // Request for objects to be selected in the drawing area
                     PromptSelectionResult acSSPrompt = doc.Editor.GetSelection();
+                    
 
                     // If the prompt status is OK, objects were selected
                     if (acSSPrompt.Status == PromptStatus.OK)
@@ -46,7 +51,7 @@ namespace ExplodeProxyMgd
                                 DBObjectCollection objs = new DBObjectCollection();
                                 BlockTable bt = (BlockTable)tr.GetObject(db.BlockTableId, OpenMode.ForRead);
 
-                                Entity entx = tr.GetObject(acSSObj.ObjectId, OpenMode.ForWrite) as Entity;
+                                entx = tr.GetObject(acSSObj.ObjectId, OpenMode.ForWrite) as Entity;
                                 entx.Explode(objs);
 
                                 string blkName = entx.Handle.ToString();
@@ -67,27 +72,101 @@ namespace ExplodeProxyMgd
                                         tr.AddNewlyCreatedDBObject(ent, true);
                                     }
 
-                                    BlockTableRecord ms = (BlockTableRecord)tr.GetObject(bt[BlockTableRecord.ModelSpace], OpenMode.ForWrite );
+                                    BlockTableRecord ms = (BlockTableRecord)tr.GetObject(bt[BlockTableRecord.ModelSpace], OpenMode.ForWrite);
 
                                     BlockReference br =
                                       new BlockReference(Point3d.Origin, btrId);
 
                                     ms.AppendEntity(br);
                                     tr.AddNewlyCreatedDBObject(br, true);
-
-
                                 }
-
                                 tr.Commit();
+                            }
+                        }
+                        RemoveProxies(entx.ObjectId);
+                    }
+                    
+                }
+                catch (Autodesk.AutoCAD.Runtime.Exception ex)
+                {
+                    //tr.Abort();
+                    ed.WriteMessage(ex.Message);
+                }
+            }
+        }
+
+        [CommandMethod("RemoveProxiesFromBlocks", "RemoveProxiesFromBlocks", CommandFlags.Modal)]
+        public void RemoveProxies()
+        {
+            Database db = HostApplicationServices.WorkingDatabase;
+
+            using (Transaction tr =
+              db.TransactionManager.StartOpenCloseTransaction())
+            {
+                BlockTable bt =
+                  (BlockTable)tr.GetObject(
+                    db.BlockTableId, OpenMode.ForRead);
+
+                foreach (ObjectId btrId in bt)
+                {
+                    BlockTableRecord btr =
+                      (BlockTableRecord)tr.GetObject(btrId, OpenMode.ForRead);
+
+                    foreach (ObjectId entId in btr)
+                    {
+                        if (entId.ObjectClass.Name == "AcDbZombieEntity")
+                        {
+                            ProxyEntity ent =
+                              (ProxyEntity)tr.GetObject(entId, OpenMode.ForRead);
+
+                            ent.UpgradeOpen();
+
+                            using (DBObject newEnt = new Line())
+                            {
+                                ent.HandOverTo(newEnt, false, false);
+                                newEnt.Erase();
                             }
                         }
                     }
                 }
-                catch (Autodesk.AutoCAD.Runtime.Exception ex)
+
+                tr.Commit();
+            }
+        }
+
+        public void RemoveProxies(ObjectId id)
+        {
+            Database db = HostApplicationServices.WorkingDatabase;
+
+            using (Transaction tr = db.TransactionManager.StartOpenCloseTransaction())
+            {
+                BlockTable bt =
+                  (BlockTable)tr.GetObject(
+                    db.BlockTableId, OpenMode.ForRead);
+
+                foreach (ObjectId btrId in bt)
                 {
-                    tr.Abort();
-                    ed.WriteMessage(ex.Message);
+                    BlockTableRecord btr =  (BlockTableRecord)tr.GetObject(btrId, OpenMode.ForRead);
+
+                    foreach (ObjectId entId in btr)
+                    {
+                        if (entId.ObjectClass.Name == "AcDbZombieEntity" && entId == id)
+                        {
+                            ProxyEntity ent =
+                              (ProxyEntity)tr.GetObject(entId, OpenMode.ForRead);
+
+                            ent.UpgradeOpen();
+
+                            using (DBObject newEnt = new Line())
+                            {
+                                ent.HandOverTo(newEnt, false, false);
+                                newEnt.Erase();
+                            }
+                        }
+                    }
                 }
+
+                tr.Commit();
             }
         }
     }

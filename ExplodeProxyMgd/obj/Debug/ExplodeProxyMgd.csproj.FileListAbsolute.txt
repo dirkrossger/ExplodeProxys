@@ -7,6 +7,5 @@ H:\Dropbox\.net private\ExplodeProxyMgd\ExplodeProxyMgd\obj\Debug\ExplodeProxyMg
 H:\Dropbox\.net private\ExplodeProxyMgd\ExplodeProxyMgd\obj\Debug\ExplodeProxyMgd.pdb
 H:\GIT-repository\ExplodeProxy\ExplodeProxyMgd\bin\Debug\ExplodeProxyMgd.dll
 H:\GIT-repository\ExplodeProxy\ExplodeProxyMgd\bin\Debug\ExplodeProxyMgd.pdb
-H:\GIT-repository\ExplodeProxy\ExplodeProxyMgd\obj\Debug\ExplodeProxyMgd.csprojResolveAssemblyReference.cache
 H:\GIT-repository\ExplodeProxy\ExplodeProxyMgd\obj\Debug\ExplodeProxyMgd.dll
 H:\GIT-repository\ExplodeProxy\ExplodeProxyMgd\obj\Debug\ExplodeProxyMgd.pdb
