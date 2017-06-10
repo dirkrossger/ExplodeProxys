@@ -9,3 +9,7 @@ H:\GIT-repository\ExplodeProxy\ExplodeProxyMgd\bin\Debug\ExplodeProxyMgd.dll
 H:\GIT-repository\ExplodeProxy\ExplodeProxyMgd\bin\Debug\ExplodeProxyMgd.pdb
 H:\GIT-repository\ExplodeProxy\ExplodeProxyMgd\obj\Debug\ExplodeProxyMgd.dll
 H:\GIT-repository\ExplodeProxy\ExplodeProxyMgd\obj\Debug\ExplodeProxyMgd.pdb
+C:\Git-repository\ExplodeProxy\ExplodeProxyMgd\bin\Debug\ExplodeProxyMgd.dll
+C:\Git-repository\ExplodeProxy\ExplodeProxyMgd\bin\Debug\ExplodeProxyMgd.pdb
+C:\Git-repository\ExplodeProxy\ExplodeProxyMgd\obj\Debug\ExplodeProxyMgd.dll
+C:\Git-repository\ExplodeProxy\ExplodeProxyMgd\obj\Debug\ExplodeProxyMgd.pdb

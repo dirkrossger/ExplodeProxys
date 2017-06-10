@@ -18,7 +18,19 @@ namespace ExplodeProxyMgd
     {
         private Entity _EntProxy;
 
-        public Entity EntProxy { get => _EntProxy; set => _EntProxy = value; }
+
+        public Entity EntProxy
+        {
+            get
+            {
+                return _EntProxy;
+            }
+
+            set
+            {
+                _EntProxy = value;
+            }
+        }
 
         public SelectionSet Selection(Document doc, Transaction tr)
         {

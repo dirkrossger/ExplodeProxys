@@ -97,4 +97,20 @@ namespace ExplodeProxyMgd
         }
 
     }
+
+    public class ExplodeProxyMgd : IExtensionApplication
+    {
+        private static Editor editor =
+            Application.DocumentManager.MdiActiveDocument.Editor;
+
+        public void Initialize()
+        {
+            editor.WriteMessage("\nConvert Proxy->Block:  Start with proxy-explode-to-block");
+        }
+
+        public void Terminate()
+        {
+        }
+    }
+
 }
